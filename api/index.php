@@ -30,13 +30,11 @@ if ( $input->format === 'svg' ) {
 }
 
 if ( ! isset( $_GET['no-cache'] ) && file_exists( __ROOT__ . "/cache/{$input->cacheKey}.png" ) ) {
-	if ( isset( $_GET['debug'] ) ) {
-		$file = fopen( __ROOT__ . "/cache/{$input->cacheKey}.png", 'rb' );
-		fpassthru( $file );
-	} else {
-		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s \G\M\T', filemtime( __ROOT__ . "/cache/{$input->cacheKey}.png" ) + 1814400 ) );
-		header( 'X-Accel-Redirect: ' . "/cache/{$input->cacheKey}.png" ); // If this part is causing you trouble, remove it and uncomment the two following lines:
-	}
+
+	header( 'Expires: ' . gmdate( 'D, d M Y H:i:s \G\M\T', filemtime( __ROOT__ . "/cache/{$input->cacheKey}.png" ) + 1814400 ) );
+
+	$file = fopen( __ROOT__ . "/cache/{$input->cacheKey}.png", 'rb' );
+	fpassthru( $file );
 
 	exit;
 }
