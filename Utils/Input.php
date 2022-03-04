@@ -72,7 +72,7 @@ class Input
 	{
 		$background = $_GET['background'] ?? '#ddd';
 		
-		if ( $background === 'random' ) {
+		if ( $background === 'random' || $background === 'default' ) {
 			$colors = [
 				[ 'b' => '5e35b1', 't' => 'FFFFFF', ],
 				[ 'b' => '512da8', 't' => 'FFFFFF', ],
@@ -336,7 +336,11 @@ class Input
 
 	private function setTextColor( $color )
 	{
-		$this->color = $color ?? $this->getTextColor();
+		if ($color && $color == 'default') {
+			$this->color = $this->getTextColor();
+		} else {
+			$this->color = $color ?? $this->getTextColor();
+		}
 	}
 
 	private function getTextColor()
@@ -370,19 +374,19 @@ class Input
 
 	private function fixInvalidInput()
 	{
-		if ( $this->length <= 0 ) {
+		if ( !$this->length || $this->length == 'default' || $this->length <= 0 ) {
 			$this->length = 1;
 		}
 
-		if ( $this->fontSize <= 0 ) {
+		if ( !$this->fontSize || $this->fontSize == 'default' || $this->fontSize <= 0 ) {
 			$this->fontSize = 0.5;
 		}
 
-		if ( $this->fontSize > 1 ) {
+		if ( !$this->fontSize || $this->fontSize == 'default' || $this->fontSize > 1 ) {
 			$this->fontSize = 1;
 		}
 
-		if ( $this->size <= 15 ) {
+		if ( !$this->size || $this->size == 'default' || $this->size <= 15 ) {
 			$this->size = 16;
 		}
 
