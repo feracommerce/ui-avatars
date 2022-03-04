@@ -50,6 +50,11 @@ class Input
 		$this->initials  = $this->getInitials();
 		$this->format    = $this->getFormat();
 		$this->cacheKey  = $this->generateCacheKey();
+
+		error_log(">> START Dumping input object:");
+		var_dump($this);
+		error_log("<< DONE Dumping input object.");
+
 		$this->fixInvalidInput();
 	}
 
