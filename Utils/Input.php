@@ -51,9 +51,9 @@ class Input
 		$this->format    = $this->getFormat();
 		$this->cacheKey  = $this->generateCacheKey();
 
-		error_log(">> START Dumping input object:");
-		error_log(var_export($this, true));
-		error_log("<< DONE Dumping input object.");
+		// error_log(">> START Dumping input object:");
+		// error_log(var_export($this, true));
+		// error_log("<< DONE Dumping input object.");
 
 		$this->fixInvalidInput();
 	}
@@ -406,26 +406,26 @@ class Input
 
 	private function detectUrlBasedParameters()
 	{
-		error_log(">> REQUEST_URI: ". $_SERVER['REQUEST_URI']);
+		// error_log(">> REQUEST_URI: ". $_SERVER['REQUEST_URI']);
 
 		if ( $this->hasQueryParameters ) {
-			error_log(">> Got request with query params.");
+			// error_log(">> Got request with query params.");
 			return false;
 		}
 
 
 		if ($_GET['params']) {
 			$requestUrl = $_GET['params'];
-			error_log(">> Got request with URL-based param attributes: ". $requestUrl);
+			// error_log(">> Got request with URL-based param attributes: ". $requestUrl);
 		} else {
 			$requestUrl = $_SERVER['REQUEST_URI'];
-			error_log(">> Got request with REQUEST_URI only.");
+			// error_log(">> Got request with REQUEST_URI only.");
 		}
 		
 
 		$requestUrl = preg_replace('/^\/?(api\/?)?(index\.php\/)?/i', $requestUrl, '');
 
-		error_log(">> Final url-based param: ". $requestUrl);
+		// error_log(">> Final url-based param: ". $requestUrl);
 
 		foreach ( explode( '/', $requestUrl ) as $index => $value ) {
 			if ( ! isset( self::$indexes[ $index ] ) ) {

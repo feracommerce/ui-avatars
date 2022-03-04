@@ -6,9 +6,6 @@ define( '__ROOT__', __DIR__ . '/..' );
 
 require_once __ROOT__ . '/vendor/autoload.php';
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
 header( 'Pragma: public' );
 header( 'Access-Control-Allow-Origin: *' );
 header( 'Access-Control-Allow-Credentials: true' );
