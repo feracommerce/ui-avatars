@@ -416,11 +416,9 @@ class Input
 			$requestUrl = $_SERVER['REQUEST_URI'];
 			error_log(">> Got request with REQUEST_URI only.");
 		}
+		
 
-
-		$requestUrl = ltrim( $requestUrl, '/' );
-		$requestUrl = ltrim( $requestUrl, 'api' );
-		$requestUrl = ltrim( $requestUrl, '/' );
+		$requestUrl = preg_replace('/^\/?(api\/?)?(index\.php\/)?/i', $requestUrl, '');
 
 		error_log(">> Final url-based param: ". $requestUrl);
 
