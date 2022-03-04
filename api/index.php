@@ -63,10 +63,12 @@ $image = $image->generate();
 
 $image->save( __ROOT__ . "/cache/{$input->cacheKey}.png", 100 );
 
-if ( isset( $_GET['debug'] ) ) {
-	echo $image->stream( 'png', 100 );
-} else {
-	header( 'X-Accel-Redirect: ' . "/cache/{$input->cacheKey}.png" );
-}
+echo $image->stream( 'png', 100 );
+
+// if ( isset( $_GET['debug'] ) ) {
+// 	echo $image->stream( 'png', 100 );
+// } else {
+// 	header( 'X-Accel-Redirect: ' . "/cache/{$input->cacheKey}.png" );
+// }
 
 exit;
