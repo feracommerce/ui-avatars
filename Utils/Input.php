@@ -402,17 +402,23 @@ class Input
 	private function detectUrlBasedParameters()
 	{
 		if ( $this->hasQueryParameters ) {
+			error_log("Got request with query params: ". $_SERVER['REQUEST_URI']);
 			return false;
 		}
 
 
 		if ($_GET['params']) {
 			$requestUrl = $_GET['params'];
+			error_log("Got request with URL-based param attribute: ". $requestUrl);
 		} else {
-			$requestUrl = ltrim( $_SERVER['REQUEST_URI'], '/' );
-			$requestUrl = ltrim( $requestUrl, 'api' );
-			$requestUrl = ltrim( $requestUrl, '/' );
+			$requestUrl = $_SERVER['REQUEST_URI'];
+			error_log("Got request with REQUEST_URI only: ". $requestUrl);
 		}
+
+
+		$requestUrl = ltrim( $requestUrl, '/' );
+		$requestUrl = ltrim( $requestUrl, 'api' );
+		$requestUrl = ltrim( $requestUrl, '/' );
 
 
 		foreach ( explode( '/', $requestUrl ) as $index => $value ) {
