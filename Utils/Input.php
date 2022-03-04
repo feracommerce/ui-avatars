@@ -405,9 +405,15 @@ class Input
 			return false;
 		}
 
-		$requestUrl = ltrim( $_SERVER['REQUEST_URI'], '/' );
-		$requestUrl = ltrim( $requestUrl, 'api' );
-		$requestUrl = ltrim( $requestUrl, '/' );
+
+		if ($_GET['params']) {
+			$requestUrl = $_GET['params'];
+		} else {
+			$requestUrl = ltrim( $_SERVER['REQUEST_URI'], '/' );
+			$requestUrl = ltrim( $requestUrl, 'api' );
+			$requestUrl = ltrim( $requestUrl, '/' );
+		}
+
 
 		foreach ( explode( '/', $requestUrl ) as $index => $value ) {
 			if ( ! isset( self::$indexes[ $index ] ) ) {
