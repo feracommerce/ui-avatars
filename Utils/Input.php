@@ -52,7 +52,7 @@ class Input
 		$this->cacheKey  = $this->generateCacheKey();
 
 		error_log(">> START Dumping input object:");
-		var_dump($this);
+		error_log(var_export($this, true));
 		error_log("<< DONE Dumping input object.");
 
 		$this->fixInvalidInput();
