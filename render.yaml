@@ -1,7 +1,13 @@
+envVarGroups:
+  - name: fera-avatars
+    envVars:
+      - key: APP_DEBUG
+        value: "true"
+
 services:
   - type: web
     region: virginia
-    name: fera-avatars
+    name: fera-avatars-web
     runtime: docker
     dockerfilePath: Dockerfile.render
     plan: standard
@@ -10,17 +16,15 @@ services:
       - "avatars.fera.ai"
       - "avatars.pic1.co"
     envVars:
-      - key: APP_DEBUG # Imported from Heroku app
-        value: "true"
+      - fromGroup: fera-avatars
 
   - type: cron
     region: virginia
-    name: cleanup-job
+    name: fera-avatars-cron-cleanup
     runtime: docker
     dockerfilePath: Dockerfile.render
     plan: standard
     envVars:
-      - key: APP_DEBUG
-        value: "true"
+      - fromGroup: fera-avatars
     schedule: "0 * * * *"
     dockerCommand: "php ./cron/cleanup.php"
