@@ -24,4 +24,3 @@ services:
         value: "true"
     schedule: "0 * * * *"
     dockerCommand: "php ./cron/cleanup.php"
-    startCommand: "php ./cron/cleanup.php"
