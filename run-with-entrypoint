@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: $0 <entrypoint_script> <command_to_execute> [args...]"
+  echo
+  echo "Arguments:"
+  echo "  <entrypoint_script>    Path to the entrypoint script."
+  echo "  <command_to_execute>   Command to run after the entrypoint script."
+  echo "  [args...]             Optional arguments for the command."
+  echo
+  echo "Example:"
+  echo "  $0 ./bin/docker-entrypoint-prod bundle exec sidekiq -C config/sidekiq/combined_workers.yml"
+  exit 1
+}
+
+if [ "$#" -lt 2 ]; then
+  echo "Error: Invalid number of arguments."
+  usage
+fi
+
+ENTRYPOINT_SCRIPT="$1"
+shift
+COMMAND_TO_EXECUTE=("$@")
+
+if [ ! -f "$ENTRYPOINT_SCRIPT" ]; then
+  echo "Error: Entrypoint script '$ENTRYPOINT_SCRIPT' does not exist."
+  exit 1
+fi
+
+if [ ! -x "$ENTRYPOINT_SCRIPT" ]; then
+  echo "Entrypoint script '$ENTRYPOINT_SCRIPT' is not executable. Adding execute permissions."
+  chmod +x "$ENTRYPOINT_SCRIPT"
+fi
+
+echo "Running entrypoint script: $ENTRYPOINT_SCRIPT"
+echo "Executing command: ${COMMAND_TO_EXECUTE[*]}"
+
+exec "$ENTRYPOINT_SCRIPT" "${COMMAND_TO_EXECUTE[@]}"

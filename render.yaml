@@ -27,4 +27,4 @@ services:
     envVars:
       - fromGroup: fera-avatars
     schedule: "0 * * * *"
-    dockerCommand: "php ./cron/cleanup.php"
+    dockerCommand: "/app/run-with-entrypoint /render/setup-env /render/process/cron-cleanup"
